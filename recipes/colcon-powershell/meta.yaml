@@ -17,7 +17,7 @@ build:
 requirements:
   host:
     - pip
-    - python >=3.5
+    - python {{ python }}
   run:
     - python >=3.5
     - colcon-core >=0.3.18

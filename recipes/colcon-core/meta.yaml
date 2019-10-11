@@ -12,14 +12,13 @@ source:
 build:
   number: 0
   script: "{{ PYTHON }} -m pip install . --no-deps --ignore-installed -vv "
-  skip: true  # [py<35]
   entry_points:
     - colcon = colcon_core.command:main
 
 requirements:
   host:
     - pip
-    - python
+    - python {{ python }}
   run:
     - python >=3.5
     - coloredlogs  # [win]
