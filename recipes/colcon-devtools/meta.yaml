@@ -12,14 +12,14 @@ source:
 build:
   number: 0
   script: "{{ PYTHON }} -m pip install . --no-deps --ignore-installed -vv "
-  skip: True  # [py<35]
+  noarch: python
 
 requirements:
   host:
     - pip
-    - python
+    - python >=3.5
   run:
-    - python
+    - python >=3.5
     - colcon-core
 
 test:
@@ -29,6 +29,7 @@ test:
 about:
   home: https://github.com/colcon/{{ name }}
   license: Apache-2.0
+  license_family: Apache
   license_file: LICENSE
   summary: |
     An extension for colcon-core to provide information about the plugin system.

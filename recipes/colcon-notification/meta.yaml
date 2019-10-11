@@ -17,9 +17,9 @@ build:
 requirements:
   host:
     - pip
-    - python
+    - python >=3.5
   run:
-    - python
+    - python >=3.5
     - colcon-core >=0.3.7
     - pywin32  # [win]
 
@@ -30,6 +30,7 @@ test:
 about:
   home: https://github.com/colcon/{{ name }}
   license: Apache-2.0
+  license_family: Apache
   license_file: LICENSE
   summary: |
     An extension for colcon-core to provide status notifications.

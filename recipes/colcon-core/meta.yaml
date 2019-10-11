@@ -12,16 +12,16 @@ source:
 build:
   number: 0
   script: "{{ PYTHON }} -m pip install . --no-deps --ignore-installed -vv "
-  skip: True  # [py<35]
+  noarch: python
   entry_points:
     - colcon = colcon_core.command:main
 
 requirements:
   host:
     - pip
-    - python
+    - python >=3.5
   run:
-    - python
+    - python >=3.5
     - coloredlogs  # [win]
     - distlib
     - EmPy
@@ -39,6 +39,7 @@ test:
 about:
   home: https://github.com/colcon/{{ name }}
   license: Apache-2.0
+  license_family: Apache
   license_file: LICENSE
   summary: |
     colcon is a command line tool to improve the workflow of building,
