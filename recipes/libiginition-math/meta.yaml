@@ -14,27 +14,27 @@ build:
   skip: true  # [win and vc<14]
 
 outputs:
-  name: libignition-math4
-  build:
-    run_exports:
-      - {{ pin_subpackage('libignition-math4', max_pin='x.x') }}
-
-  requirements:
+  - name: libignition-math4
     build:
-      - {{ compiler('cxx') }}              # [not win]
-      - {{ compiler('c') }}                # [not win]
-      - vs2017_win-64                      # [win64]
-      - vs2017_win-32                      # [win32]
-      - make                               # [not win]
-      - cmake
-    host:
-      - libignition-cmake0
-    run:
-      - libignition-cmake0
+      run_exports:
+        - {{ pin_subpackage('libignition-math4', max_pin='x.x') }}
 
-  test:
-    commands:
-      - if exist %PREFIX%\\Library\\lib\\cmake\\ignition-math4\\ignition-math4-config.cmake (exit 0) else (exit 1)  # [win]
+    requirements:
+      build:
+        - {{ compiler('cxx') }}              # [not win]
+        - {{ compiler('c') }}                # [not win]
+        - vs2017_win-64                      # [win64]
+        - vs2017_win-32                      # [win32]
+        - make                               # [not win]
+        - cmake
+      host:
+        - libignition-cmake0
+      run:
+        - libignition-cmake0
+
+    test:
+      commands:
+        - if exist %PREFIX%\\Library\\lib\\cmake\\ignition-math4\\ignition-math4-config.cmake (exit 0) else (exit 1)  # [win]
 
 about:
   home: https://bitbucket.org/ignitionrobotics/ign-math

@@ -14,34 +14,34 @@ build:
   skip: true  # [win and vc<14]
 
 outputs:
-  name: libignition-msgs1
-  build:
-    run_exports:
-      - {{ pin_subpackage('libignition-msgs1', max_pin='x.x') }}
-
-  requirements:
+  - name: libignition-msgs1
     build:
-      - {{ compiler('cxx') }}              # [not win]
-      - {{ compiler('c') }}                # [not win]
-      - vs2017_win-64                      # [win64]
-      - vs2017_win-32                      # [win32]
-      - make                               # [not win]
-      - cmake
-      - pkg-config
-    host:
-      - libignition-tools
-      - libignition-math4
-      - protobuf
-      - libprotobuf                        # [not win]
-    run:
-      - libignition-tools
-      - libignition-math4
-      - protobuf
-      - libprotobuf                        # [not win]
+      run_exports:
+        - {{ pin_subpackage('libignition-msgs1', max_pin='x.x') }}
 
-  test:
-    commands:
-      - if exist %PREFIX%\\Library\\lib\\cmake\\ignition-msgs1\\ignition-msgs1-config.cmake (exit 0) else (exit 1)  # [win]
+    requirements:
+      build:
+        - {{ compiler('cxx') }}              # [not win]
+        - {{ compiler('c') }}                # [not win]
+        - vs2017_win-64                      # [win64]
+        - vs2017_win-32                      # [win32]
+        - make                               # [not win]
+        - cmake
+        - pkg-config
+      host:
+        - libignition-tools
+        - libignition-math4
+        - protobuf
+        - libprotobuf                        # [not win]
+      run:
+        - libignition-tools
+        - libignition-math4
+        - protobuf
+        - libprotobuf                        # [not win]
+
+    test:
+      commands:
+        - if exist %PREFIX%\\Library\\lib\\cmake\\ignition-msgs1\\ignition-msgs1-config.cmake (exit 0) else (exit 1)  # [win]
 
 about:
   home: https://bitbucket.org/ignitionrobotics/ign-msgs
