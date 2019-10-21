@@ -9,11 +9,13 @@ source:
   - url: https://bitbucket.org/ignitionrobotics/ign-math/get/ignition-math4_4.0.0.tar.gz
     sha256: d212be42b9472bf3de3406848182cac982f503bf97417cb684f2689f851f04ee
 
+build:
+  number: 0
+  skip: true  # [win and vc<14]
+
 outputs:
   name: libignition-math4
   build:
-    number: 0
-    skip: true  # [win and vc<14]
     run_exports:
       - {{ pin_subpackage('libignition-math4', max_pin='x.x') }}
 

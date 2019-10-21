@@ -9,11 +9,13 @@ source:
   - url: https://bitbucket.org/ignitionrobotics/ign-tools/get/ignition-tools_{{ version }}.tar.gz
     sha256: a342dfad6e9b32ea400eeaa64253251a73a6e768ba539ad8302797950888a87e
 
+build:
+  number: 0
+  skip: true  # [win and vc<14]
+
 outputs:
   name: libignition-tools
   build:
-    number: 0
-    skip: true  # [win and vc<14]
     run_exports:
       - {{ pin_subpackage('libignition-tools', max_pin='x.x') }}
 

@@ -9,11 +9,13 @@ source:
   - url: https://bitbucket.org/ignitionrobotics/ign-transport/get/ignition-transport4_{{ version }}.tar.gz
     sha256: 43d46b8eaed2ca4ace57591bb2f4d053513f527f6fd876516daa52d124d8dc6c
 
+build:
+  number: 0
+  skip: true  # [win and vc<14]
+
 outputs:
   name: libignition-transport4
   build:
-    number: 0
-    skip: true  # [win and vc<14]
     run_exports:
       - {{ pin_subpackage('libignition-transport4', max_pin='x.x') }}
 

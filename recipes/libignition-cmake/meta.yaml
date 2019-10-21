@@ -9,11 +9,13 @@ source:
   - url: https://bitbucket.org/ignitionrobotics/ign-cmake/get/ignition-cmake_{{ version }}.tar.gz
     sha256: d5409b66b4c05087d744eb60cd5c9ce3792541d071e4f40951c2e5c501874956
 
+build:
+  number: 0
+  skip: true  # [win and vc<14]
+
 outputs:
   name: libignition-cmake0
   build:
-    number: 0
-    skip: true  # [win and vc<14]
     run_exports:
       - {{ pin_subpackage('libignition-cmake0', max_pin='x.x') }}
 
