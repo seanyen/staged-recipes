@@ -15,7 +15,7 @@ build:
 
 requirements:
   host:
-    - libignition-cmake
+    - libignition-cmake0
 
 outputs:
   - name: libignition-math4

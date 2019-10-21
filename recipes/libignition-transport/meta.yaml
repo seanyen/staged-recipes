@@ -15,7 +15,7 @@ build:
 
 requirements:
   host:
-    - libignition-msgs
+    - libignition-msgs1
 
 outputs:
   - name: libignition-transport4

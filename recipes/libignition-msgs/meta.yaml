@@ -16,7 +16,7 @@ build:
 requirements:
   host:
     - libignition-tools
-    - libignition-math
+    - libignition-math4
 
 outputs:
   - name: libignition-msgs1
