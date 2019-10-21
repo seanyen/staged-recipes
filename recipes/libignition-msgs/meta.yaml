@@ -13,6 +13,11 @@ build:
   number: 0
   skip: true  # [win and vc<14]
 
+requirements:
+  host:
+    - libignition-tools
+    - libignition-math
+
 outputs:
   - name: libignition-msgs1
     build:
