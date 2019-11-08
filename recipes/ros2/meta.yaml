@@ -1,0 +1,93 @@
+{% set name = "ros2" %}
+{% set version = "0.1.0" %}
+
+package:
+  name: {{ name }}
+  version: {{ version }}
+
+source:
+  - url: https://github.com/ament/ament_cmake/archive/0.7.3.tar.gz
+    folder: src/ament_cmake
+  - url: https://github.com/ros2/ament_cmake_ros/archive/0.7.0.tar.gz
+    folder: src/ament_cmake_ros
+  - url: https://github.com/ament/ament_lint/archive/0.7.11.tar.gz
+    folder: src/ament_lint
+  - url: https://github.com/ament/ament_package/archive/0.7.3.tar.gz
+    folder: src/ament_package
+  - url: https://github.com/ament/uncrustify_vendor/archive/1.2.0.tar.gz
+    folder: src/uncrustify_vendor
+
+build:
+  number: 0
+  skip: true  # [osx]
+  run_exports:
+    - {{ pin_subpackage(name, max_pin='x.x') }}
+
+requirements:
+  build:
+    - {{ compiler('cxx') }}              # [not win]
+    - {{ compiler('c') }}                # [not win]
+    - vs2017_win-64                      # [win64]
+    - ninja
+    - cmake
+    - colcon-common-extensions
+    - curl
+  host:
+    - catkin_pkg
+    - empy
+    - lark-parser
+    - pyparsing
+    - pyyaml
+    - pytest
+    - coverage
+    - mock
+    - flake8
+    - flake8-blind-except
+    - flake8-builtins
+    # - flake8-class-newline
+    - flake8-comprehensions
+    # - flake8-deprecated
+    - flake8-docstrings
+    - flake8-import-order
+    - flake8-quotes
+    - pep8
+    - pydocstyle
+    - cppcheck
+  run:
+    - catkin_pkg
+    - empy
+    - lark-parser
+    - pyparsing
+    - pyyaml
+    - pytest
+    - pytest-cov
+    - pytest-runner
+    - coverage
+    - mock
+    - flake8
+    - flake8-blind-except
+    - flake8-builtins
+    # - flake8-class-newline
+    - flake8-comprehensions
+    # - flake8-deprecated
+    - flake8-docstrings
+    - flake8-import-order
+    - flake8-quotes
+    - pep8
+    - pydocstyle
+    - cppcheck
+
+test:
+  commands:
+    - if exist $PREFIX$\\Library\\bin\\slaveinfo.exe (exit 0) else (exit 1)  # [win]
+
+about:
+  home: https://openethercatsociety.github.io/
+  license: GPL-2.0
+  license_file: LICENSE
+  summary: |
+    Simple Open Source EtherCAT Master
+
+extra:
+  recipe-maintainers:
+    - seanyen
