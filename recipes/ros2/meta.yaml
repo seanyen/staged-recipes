@@ -82,11 +82,10 @@ test:
     - if exist $PREFIX$\\Library\\bin\\slaveinfo.exe (exit 0) else (exit 1)  # [win]
 
 about:
-  home: https://openethercatsociety.github.io/
-  license: GPL-2.0
-  license_file: LICENSE
+  home: https://index.ros.org/doc/ros2/
+  license: BSD-3-Clause
   summary: |
-    Simple Open Source EtherCAT Master
+    Robot Operating System 2
 
 extra:
   recipe-maintainers:
