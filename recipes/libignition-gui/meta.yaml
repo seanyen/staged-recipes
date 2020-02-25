@@ -1,0 +1,44 @@
+{% set name = "libignition-gui" %}
+{% set version = "3.0.0" %}
+{% set major_version = version.split('.')[0] %}
+
+package:
+  name: {{ name }}
+  version: {{ version }}
+
+source:
+  - url: https://bitbucket.org/ignitionrobotics/ign-gui/get/ignition-gui{{ major_version }}_{{ version }}.tar.gz
+    sha256: 9e3034eebd87fa82cd99eae01057f811c9b84bfd9dfd25f051057d754d5b4e66
+
+build:
+  number: 0
+  skip: true  # [win and vc<14 or osx]
+  run_exports:
+    - {{ pin_subpackage(name, max_pin='x.x') }}
+
+requirements:
+  build:
+    - {{ compiler('cxx') }}
+    - {{ compiler('c') }}
+    - cmake
+    - ninja
+    - pkgconfig
+  host:
+    - libignition-cmake2
+  run:
+
+test:
+  commands:
+    - test -f ${PREFIX}/include/ignition/plugin{{ major_version }}/ignition/plugin.hh  # [not win]
+    - if not exist %PREFIX%\\Library\\include\\ignition\plugin{{ major_version }}\ignition\plugin.hh exit 1  # [win]
+
+about:
+  home: https://bitbucket.org/ignitionrobotics/ign-gui
+  license: Apache-2.0
+  license_file: LICENSE
+  summary: |
+    Ignition GUI : Graphical interfaces for robotics applications
+
+extra:
+  recipe-maintainers:
+    - seanyen

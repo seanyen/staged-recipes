@@ -1,0 +1,53 @@
+{% set base_name = "libignition-rendering" %}
+{% set version = "3.0.0" %}
+{% set major_version = version.split('.')[0] %}
+{% set name = base_name + major_version %}
+
+package:
+  name: {{ name }}
+  version: {{ version }}
+
+source:
+  - url: https://bitbucket.org/ignitionrobotics/ign-rendering/get/ignition-rendering{{ major_version }}_{{ version }}.tar.gz
+    sha256: afdb0ad836904ad04dd2107fa97c1f095e446a4b3a89233ff81f125068c973fd
+
+build:
+  number: 0
+  skip: true  # [win and vc<14 or osx]
+  run_exports:
+    - {{ pin_subpackage(name, max_pin='x.x') }}
+
+requirements:
+  build:
+    - {{ compiler('cxx') }}
+    - {{ compiler('c') }}
+    - cmake
+    - ninja
+    - pkgconfig
+  host:
+    - libignition-cmake2
+    - libignition-math6
+    - libignition-common3
+    - libignition-plugin1
+    - ogre
+  run:
+    - libignition-math6
+    - libignition-common3
+    - libignition-plugin1
+    - ogre
+
+test:
+  commands:
+    - test -f ${PREFIX}/include/ignition/plugin{{ major_version }}/ignition/plugin.hh  # [not win]
+    - if not exist %PREFIX%\\Library\\include\\ignition\plugin{{ major_version }}\ignition\plugin.hh exit 1  # [win]
+
+about:
+  home: https://bitbucket.org/ignitionrobotics/ign-plugin
+  license: Apache-2.0
+  license_file: COPYING
+  summary: |
+    Library for registering plugin libraries and dynamically loading them at runtime.
+
+extra:
+  recipe-maintainers:
+    - seanyen

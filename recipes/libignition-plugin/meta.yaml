@@ -1,0 +1,47 @@
+{% set base_name = "libignition-plugin" %}
+{% set version = "1.1.0" %}
+{% set major_version = version.split('.')[0] %}
+{% set name = base_name + major_version %}
+
+package:
+  name: {{ name }}
+  version: {{ version }}
+
+source:
+  - url: https://bitbucket.org/ignitionrobotics/ign-plugin/get/ignition-plugin_{{ version }}.tar.gz
+    sha256: 3b494fe7c9ec0e26c0cc322996b75906fdf624a62199509059ac21879f4544c5
+
+build:
+  number: 0
+  skip: true  # [win and vc<14 or osx]
+  run_exports:
+    - {{ pin_subpackage(name, max_pin='x.x') }}
+
+requirements:
+  build:
+    - {{ compiler('cxx') }}
+    - {{ compiler('c') }}
+    - cmake
+    - ninja
+    - pkgconfig
+  host:
+    - libignition-cmake2
+    - dlfcn-win32  # [win]
+  run:
+    - dlfcn-win32  # [win]
+
+test:
+  commands:
+    - test -f ${PREFIX}/include/ignition/plugin{{ major_version }}/ignition/plugin.hh  # [not win]
+    - if not exist %PREFIX%\\Library\\include\\ignition\plugin{{ major_version }}\ignition\plugin.hh exit 1  # [win]
+
+about:
+  home: https://bitbucket.org/ignitionrobotics/ign-plugin
+  license: Apache-2.0
+  license_file: COPYING
+  summary: |
+    Library for registering plugin libraries and dynamically loading them at runtime.
+
+extra:
+  recipe-maintainers:
+    - seanyen
