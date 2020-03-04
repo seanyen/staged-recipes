@@ -31,6 +31,9 @@ outputs:
         - pkg-config
       host:
         - libignition-cmake2
+        - libignition-plugin1
+        - libignition-common3
+        - libignition-math6
       run:
     test:
       commands:
