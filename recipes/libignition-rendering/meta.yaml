@@ -1,0 +1,53 @@
+{% set base_name = "libignition-rendering" %}
+{% set version = "3.0.0" %}
+{% set major_version = version.split('.')[0] %}
+{% set name = base_name + major_version %}
+
+package:
+  name: {{ base_name }}
+  version: {{ version }}
+
+source:
+  - url: https://bitbucket.org/ignitionrobotics/ign-rendering/get/ignition-rendering{{ major_version }}_{{ version }}.tar.gz
+    sha256: afdb0ad836904ad04dd2107fa97c1f095e446a4b3a89233ff81f125068c973fd
+
+build:
+  number: 0
+  skip: true  # [win and vc<14 or unix]
+  run_exports:
+    - {{ pin_subpackage(name, max_pin='x.x') }}
+
+outputs:
+  - name: {{ name }}
+    version: {{ version }}
+    script: bldpkg.bat
+    requirements:
+      build:
+        - {{ compiler('cxx') }}  # [not win]
+        - {{ compiler('c') }}    # [not win]
+        - vs2017_win-64          # [win64]
+        - cmake
+        - ninja
+        - pkg-config
+      host:
+        - libignition-cmake2
+        - libignition-math6
+        - libignition-common3
+        - libignition-plugin1
+        - ogre 1.10.*
+      run:
+    test:
+      commands:
+        - test -f ${PREFIX}/include/ignition/rendering{{ major_version }}/ignition/rendering.hh  # [not win]
+        - if exist %PREFIX%\\Library\\include\\ignition\rendering{{ major_version }}\ignition\rendering.hh (exit 0) else (exit 1)  # [win]
+
+about:
+  home: https://bitbucket.org/ignitionrobotics/ign-rendering
+  license: Apache-2.0
+  license_file: COPYING
+  summary: |
+    Ignition Rendering: Rendering library for robot applications
+
+extra:
+  recipe-maintainers:
+    - seanyen
