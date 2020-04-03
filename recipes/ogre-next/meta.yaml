@@ -1,0 +1,53 @@
+{% set name = "ogre-next" %}
+{% set version = "2.1.r20200225" %}
+{% set commit = "d35259ed9ac88555949e738d9377523d6d5d2e2a" %}
+
+package:
+  name: {{ name|lower }}
+  version: {{ version }}
+
+source:
+  - url: https://github.com/OGRECave/ogre-next/archive/{{ commit }}.tar.gz
+    sha256: 75bb1549e2471d69ac5cce2de42687d204fa4fa507302ae49e42c255d8edb863
+
+build:
+  number: 0
+  skip: true  # [win and vc<14 or unix]
+  run_exports:
+    - {{ pin_subpackage(name, exact=True) }}
+
+requirements:
+  build:
+    - {{ compiler('c') }}
+    - {{ compiler('cxx') }}
+    - cmake
+    - pkg-config
+  host:
+    - freetype
+    - pugixml
+    - zlib
+    - zziplib
+    - freeimage
+    - openexr
+    - sdl2
+  run:
+    - freetype
+    - zlib
+    - zziplib
+    - freeimage
+    - openexr
+    - sdl2
+
+test:
+  commands:
+    - if not exist %PREFIX%\\Library\\bin\\OgreMain.dll exit 1  # [win]
+
+about:
+  home: https://www.ogre3d.org/
+  license: MIT
+  license_file: COPYING
+  summary: 'OGRE is a scene-oriented, flexible 3D engine written in C++ designed to make it easier and more intuitive for developers to produce games and demos utilising 3D hardware.'
+
+extra:
+  recipe-maintainers:
+    - seanyen
